@@ -1,4 +1,4 @@
-﻿namespace Point72.LibraryApi.Handlers;
+﻿namespace Point72.LibraryApi.Endpoints;
 
 // 3.	Endpoint to generate report (/api/report) – list of users with total count of books taken and total count of
 // days this user holds all the books.
