@@ -6,5 +6,6 @@ public static class QueriesModule
     {
         services.AddTransient<EnsureDbConnectionQuery>();
         services.AddTransient<SearchBooksQuery>();
+        services.AddTransient<FindBookQuery>();
     }
 }

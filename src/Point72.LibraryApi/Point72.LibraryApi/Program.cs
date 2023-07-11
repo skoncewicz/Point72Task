@@ -19,8 +19,8 @@ EndpointsModule.Register(builder.Services);
     
 var app = builder.Build();
 
-// Configure endpoints
-app.MapGet("/", async () =>
+// Create simple healthcheck
+app.MapGet("/healthcheck", async () =>
 {
     // Try out queries to make sure the connection string and basic mappings are ok
     using (var scope = app.Services.CreateScope())
@@ -29,9 +29,12 @@ app.MapGet("/", async () =>
         await ensureDbConnection.Execute();
     }
     
-    return "Application started!";
+    return "OK";
 });
+
+// Register rest of the endpoints
 GetBook.MapEndpoint(app);
+GetInvertedBook.MapEndpoint(app);
 
 // Start the application
 app.Run();

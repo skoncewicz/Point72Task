@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point72.LibraryApi", "Point
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point72.LibraryApi.IntegrationTests", "Point72.LibraryApi.IntegrationTests\Point72.LibraryApi.IntegrationTests.csproj", "{DFFDA063-5166-4C11-B540-53EB9E161FC0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point72.LibraryApi.UnitTests", "Point72.LibraryApi.UnitTests\Point72.LibraryApi.UnitTests.csproj", "{152C5CE7-1A2A-47C1-AD29-77BD683CA68F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{DFFDA063-5166-4C11-B540-53EB9E161FC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFFDA063-5166-4C11-B540-53EB9E161FC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFFDA063-5166-4C11-B540-53EB9E161FC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{152C5CE7-1A2A-47C1-AD29-77BD683CA68F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{152C5CE7-1A2A-47C1-AD29-77BD683CA68F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{152C5CE7-1A2A-47C1-AD29-77BD683CA68F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{152C5CE7-1A2A-47C1-AD29-77BD683CA68F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -11,6 +11,6 @@ public class ApplicationStartupTests : IntegrationTest
         
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
-        responseString.Should().Be("Application Started!");
+        responseString.Should().Be("Application started!");
     }
 }

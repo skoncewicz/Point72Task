@@ -7,5 +7,6 @@ public static class EndpointsModule
         services.AddTransient<GetBook>();
         services.AddTransient<GetInvertedBook>();
         services.AddTransient<GetReport>();
+        services.AddTransient<InvertWords>();
     }
 }
