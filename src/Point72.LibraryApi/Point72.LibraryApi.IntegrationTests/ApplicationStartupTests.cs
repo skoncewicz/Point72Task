@@ -7,10 +7,10 @@ public class ApplicationStartupTests : IntegrationTest
     [Test]
     public async Task RootPath_ReturnsOk()
     {
-        var response = await Client.GetAsync("/");
+        var response = await Client.GetAsync("/healthcheck");
         
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
-        responseString.Should().Be("Application started!");
+        responseString.Should().Be("OK");
     }
 }

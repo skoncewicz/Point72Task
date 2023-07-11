@@ -13,7 +13,8 @@ public class GetInvertedBook
         ([FromServices] GetInvertedBook handler, long id) => handler.Execute(id)
     );
     
-    public record BookDto (long Id, string Title, string? Description, string Author);
+    public record BookDto (long Id, string Title, string? Description, AuthorDto Author);
+    public record AuthorDto (long Id, string FirstName, string LastName);
     private async Task<IResult> Execute(long id)
     {
         var book = await _findBookQuery.ExecuteAsync(id);
@@ -25,7 +26,7 @@ public class GetInvertedBook
             book.Id,
             _invertWords.Invert(book.Title),
             book.Description,
-            string.Empty
+            new AuthorDto(book.Author.Id, book.Author.FirstName, book.Author.LastName)
         );
         
         return Results.Json(invertedBook);

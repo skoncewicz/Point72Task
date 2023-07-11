@@ -1,4 +1,5 @@
-﻿using Point72.LibraryApi.Database;
+﻿using Microsoft.EntityFrameworkCore;
+using Point72.LibraryApi.Database;
 
 namespace Point72.LibraryApi.Queries;
 
@@ -13,7 +14,9 @@ public class FindBookQuery
     
     public async Task<Book?> ExecuteAsync(long id)
     {
-        var book = await _libraryDbContext.Books.FindAsync(id);
+        var book = await _libraryDbContext.Books
+            .Include(b => b.Author)
+            .FirstOrDefaultAsync(b => b.Id == id);
 
         return book;
     }

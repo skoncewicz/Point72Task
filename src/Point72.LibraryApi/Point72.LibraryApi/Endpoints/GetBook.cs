@@ -16,7 +16,7 @@ public class GetBook
         ([FromServices] GetBook handler, HttpRequest request, string? author, string? text, long? userId) 
             => handler.Execute(request, author, text, userId));
 
-    public record BookDto (long Id, string Title, string? Description, string Author);
+    public record BookDto (long Id, string Title, string? Description, AuthorDto Author);
     public record AuthorDto (long Id, string FirstName, string LastName);
 
     public async Task<IResult> Execute(HttpRequest httpRequest, string? author, string? text, long? userId)
@@ -33,7 +33,8 @@ public class GetBook
 
         var results = await _searchBooksQuery.ExecuteAsync(author, text, userId);
         var mappedToDto = await results.Select(b =>
-            new BookDto(b.Id, b.Title, b.Description, "")
+            new BookDto(b.Id, b.Title, b.Description,
+                new AuthorDto(b.Author.Id, b.Author.FirstName, b.Author.LastName))
         ).ToListAsync();
 
         return Results.Json(mappedToDto);
