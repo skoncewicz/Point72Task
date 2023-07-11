@@ -28,7 +28,7 @@ public class GetBook
 
     public async Task<IResult> Execute(HttpRequest httpRequest, string? author, string? text, long? userId)
     {
-        var acceptedParameters = new[] { "author", "text", "user" };
+        var acceptedParameters = new[] { "author", "text", "userid" };
         var unexpectedParameters = httpRequest.Query
             .Select(p => p.Key.ToLower())
             .Where(p => !acceptedParameters.Contains(p))
@@ -38,7 +38,7 @@ public class GetBook
             return Results.BadRequest("This endpoint does not accept following parameters: " +
                                       String.Join(", ", unexpectedParameters));
 
-        var results = await _searchBooksQuery.ExecuteAsync(author, text);
+        var results = await _searchBooksQuery.ExecuteAsync(author, text, userId);
         var mappedToDto = await results.Select(b =>
             new BookDto(b.Id, b.Title, b.Description, "")
         ).ToListAsync();

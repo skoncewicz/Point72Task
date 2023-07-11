@@ -37,7 +37,8 @@ public class GetBookTests : IntegrationTest
         
         // act
         var books = await ActSearchBooks("author=john");
-        
+
+        // assert
         books.Should().HaveCount(3);
         books.Select(b => b.Title).Should().BeEquivalentTo(
             "Book 1", "Book 2", "Book 3"
@@ -47,6 +48,7 @@ public class GetBookTests : IntegrationTest
     [Test]
     public async Task ShouldSearchByText()
     {
+        // arrange
         GivenBooks(
             new Book { Title = "Book about wolves", Description = "This is a book about John Doe" },
             new Book { Title = "Another book about wolves", Description = null },
@@ -57,6 +59,7 @@ public class GetBookTests : IntegrationTest
         // act
         var books = await ActSearchBooks("text=wolves");
 
+        // assert
         books.Should().HaveCount(3);
         books.Select(b => b.Title).Should().BeEquivalentTo(
             "Book about wolves", "Another book about wolves", "Animals of the forest"
@@ -66,21 +69,44 @@ public class GetBookTests : IntegrationTest
     [Test]
     public async Task ShouldSearchByUser()
     {
+        // arrange
         var book1 = new Book { Title = "Book 1" };
         var book2 = new Book { Title = "Book 2" };
         GivenBooks(book1, book2);
 
         var user = new User { FirstName = "Zbigniew" };
-        // GivenUsers(user);
+        GivenUsers(user);
         
         var bookTaken = new BooksTaken{ Book = book1, User = user };
         GivenBooksTaken(bookTaken);
+        
+        // act
+        var books = await ActSearchBooks($"userId={user.Id}");
+        
+        // assert
+        books.Should().OnlyContain(
+            b => b.Title == "Book 1"
+        );
     }
 
     [Test]
     public async Task ShouldCombineUsingAndOperator()
     {
-        throw new NotImplementedException();
+        // arrange
+        GivenBooks(
+            new Book { Title = "Book 1", Author = new Author { FirstName = "John", LastName = "Doe" } },
+            new Book { Title = "Book Awesome 2", Author = new Author { FirstName = "Alice", LastName = "John" } },
+            new Book { Title = "Book Awesome 3", Author = new Author { FirstName = "Barrack", MiddleName = "John", LastName = "Trump" } },
+            new Book { Title = "Book 4", Author = new Author { FirstName = "Peter", LastName = "Watts" } }
+        );
+        
+        // act
+        var books = await ActSearchBooks("text=awesome&author=john");
+        
+        // assert
+        books.Select(b => b.Title).Should().BeEquivalentTo(
+            "Book Awesome 2", "Book Awesome 3"
+        );
     }
     
     private async Task<List<GetBook.BookDto>> ActSearchBooks(string query)

@@ -21,7 +21,8 @@ internal class SqlLiteWebApplicationFactory : WebApplicationFactory<Program>
 
             services.AddDbContext<LibraryDbContext>(options =>
             {
-                options.UseSqlite("DataSource=:memory:");
+                //options.UseSqlite("DataSource=:memory:");
+                options.UseSqlite("DataSource=c:integration_tests.db");
             });
         });
     }

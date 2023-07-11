@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Point72.LibraryApi.Database;
@@ -7,43 +8,51 @@ namespace Point72.LibraryApi.IntegrationTests;
 
 public class IntegrationTest
 {
-    protected readonly HttpClient Client;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IDbContextFactory<LibraryDbContext> _contextFactory;
+    protected HttpClient Client;
+    private WebApplicationFactory<Program> _factory;
+    private LibraryDbContext _dbContext;
+    private IServiceScope _scope;
 
-    protected IntegrationTest()
+    [SetUp]
+    public void Setup()
     {
-        var factory = new InMemoryWebApplicationFactory();
+        _factory = new SqlLiteWebApplicationFactory();
+        
+        _scope = _factory.Services.CreateScope();
+        _dbContext = _scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+        _dbContext.Database.OpenConnection();
+        _dbContext.Database.EnsureCreated();
 
-        _serviceProvider = factory.Services;
-        Client = factory.CreateClient();
+        Client = _factory.CreateClient();
+    }
+    
+    [TearDown]
+    public void TearDown()
+    {
+        _dbContext.RemoveRange(_dbContext.Books);
+        _dbContext.RemoveRange(_dbContext.Users);
+        _dbContext.RemoveRange(_dbContext.Authors);
+        _dbContext.RemoveRange(_dbContext.BooksTaken);
+
+        _dbContext.SaveChanges();
     }
 
     protected void GivenBooks(params Book[] books)
     {
-        using var scope = _serviceProvider.CreateScope();
-        using var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
-        
-        dbContext.Books.AddRange(books);
-        dbContext.SaveChanges();
+        _dbContext.Books.AddRange(books);
+        _dbContext.SaveChanges();
     }
     
     protected void GivenUsers(params User[] users)
     {
-        using var scope = _serviceProvider.CreateScope();
-        using var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
-        
-        dbContext.Users.AddRange(users);
-        dbContext.SaveChanges();
+        _dbContext.Users.AddRange(users);
+        _dbContext.SaveChanges();
     }
 
     protected void GivenBooksTaken(params BooksTaken[] booksTaken)
     {
-        using var scope = _serviceProvider.CreateScope();
-        using var dbContext = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
-        
-        dbContext.BooksTaken.AddRange(booksTaken);
-        dbContext.SaveChanges();
+        _dbContext.BooksTaken.AddRange(booksTaken);
+        _dbContext.SaveChanges();
     }
 
     protected static async Task ShouldBeSuccess(HttpResponseMessage response)

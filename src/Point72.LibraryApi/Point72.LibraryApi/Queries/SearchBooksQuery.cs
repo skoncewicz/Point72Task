@@ -1,4 +1,5 @@
-﻿using Point72.LibraryApi.Database;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using Point72.LibraryApi.Database;
 
 namespace Point72.LibraryApi.Queries;
 
@@ -11,9 +12,22 @@ public class SearchBooksQuery
         _context = context;
     }
 
-    public async Task<IQueryable<Book>> ExecuteAsync(string? author = null, string? text = null)
+    public async Task<IQueryable<Book>> ExecuteAsync(string? author = null, string? text = null, long? userId = null)
     {
         var query = _context.Books.AsQueryable();
+
+        if (userId is {})
+        {
+            var user = await _context.Users.FindAsync(userId);
+            
+            if(user is null)
+                throw new Exception("User not found");
+
+            query = _context.BooksTaken
+                .Where(bt => bt.User == user)
+                .Select(bt => bt.Book)
+                .Distinct();
+        }
         
         if (!string.IsNullOrWhiteSpace(author))
         {
