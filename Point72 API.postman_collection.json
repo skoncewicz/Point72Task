@@ -1,0 +1,77 @@
+{
+	"info": {
+		"_postman_id": "2f1eb81b-488c-4e49-997c-3fb4b664ce48",
+		"name": "Point72 API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUri}}",
+					"host": [
+						"{{BaseUri}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InvertBook",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseUri}}/api/invertwords/12",
+					"host": [
+						"{{BaseUri}}"
+					],
+					"path": [
+						"api",
+						"invertwords",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Report",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUri",
+			"value": "http://localhost:5235",
+			"type": "default"
+		}
+	]
+}
