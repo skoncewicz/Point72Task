@@ -1,6 +1,4 @@
-# Point72Task
-
-Point72 API.postman_collection.json
+Postman collection in file: Point72 API.postman_collection.json
 
 # What has been done
 - New project using .net minimal API, wanted to try that. Some stuff requires verbose code, but the nice thing is we can construct the application precisely as we want.
