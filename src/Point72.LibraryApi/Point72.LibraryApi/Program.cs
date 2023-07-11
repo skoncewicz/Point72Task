@@ -35,6 +35,7 @@ app.MapGet("/healthcheck", async () =>
 // Register rest of the endpoints
 GetBook.MapEndpoint(app);
 GetInvertedBook.MapEndpoint(app);
+GetReport.MapEndpoint(app);
 
 // Start the application
 app.Run();

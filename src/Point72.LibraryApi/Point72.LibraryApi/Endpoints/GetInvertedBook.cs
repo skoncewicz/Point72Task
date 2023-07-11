@@ -13,15 +13,7 @@ public class GetInvertedBook
         ([FromServices] GetInvertedBook handler, long id) => handler.Execute(id)
     );
     
-    private readonly FindBookQuery _findBookQuery;
-    private readonly InvertWords _invertWords;
-
-    public GetInvertedBook(FindBookQuery findBookQuery, InvertWords invertWords)
-    {
-        _findBookQuery = findBookQuery;
-        _invertWords = invertWords;
-    }
-
+    public record BookDto (long Id, string Title, string? Description, string Author);
     private async Task<IResult> Execute(long id)
     {
         var book = await _findBookQuery.ExecuteAsync(id);
@@ -38,6 +30,14 @@ public class GetInvertedBook
         
         return Results.Json(invertedBook);
     }
+    
+    private readonly FindBookQuery _findBookQuery;
+    private readonly InvertWords _invertWords;
 
-    public record BookDto (long Id, string Title, string? Description, string Author);
+    public GetInvertedBook(FindBookQuery findBookQuery, InvertWords invertWords)
+    {
+        _findBookQuery = findBookQuery;
+        _invertWords = invertWords;
+    }
+
 }

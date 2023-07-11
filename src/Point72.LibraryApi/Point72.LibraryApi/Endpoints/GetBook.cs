@@ -15,14 +15,7 @@ public class GetBook
     public static void MapEndpoint(WebApplication app) => app.MapGet("/api/search",
         ([FromServices] GetBook handler, HttpRequest request, string? author, string? text, long? userId) 
             => handler.Execute(request, author, text, userId));
-    
-    private readonly SearchBooksQuery _searchBooksQuery;
 
-    public GetBook(SearchBooksQuery searchBooksQuery)
-    {
-        _searchBooksQuery = searchBooksQuery;
-    }
-    
     public record BookDto (long Id, string Title, string? Description, string Author);
     public record AuthorDto (long Id, string FirstName, string LastName);
 
@@ -44,5 +37,11 @@ public class GetBook
         ).ToListAsync();
 
         return Results.Json(mappedToDto);
+    }
+    
+    private readonly SearchBooksQuery _searchBooksQuery;
+    public GetBook(SearchBooksQuery searchBooksQuery)
+    {
+        _searchBooksQuery = searchBooksQuery;
     }
 }
