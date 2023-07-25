@@ -31,9 +31,8 @@ public class InvertWordsPreserveStructureFast : IInvertWordsFast
                     reversedWordEnd++;
                 
                 // copy reversed word to result
-                int readRevPtr = 0;
-                for (readRevPtr = reversedWordStart; readRevPtr <= reversedWordEnd; readRevPtr++)
-                    resultChars[writePtr++] = testString[readRevPtr];
+                for (int i = reversedWordStart; i <= reversedWordEnd; i++)
+                    resultChars[writePtr++] = testString[i];
 
                 reversedWordStart--;
 
