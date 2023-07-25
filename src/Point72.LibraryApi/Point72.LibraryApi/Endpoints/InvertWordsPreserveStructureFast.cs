@@ -24,14 +24,9 @@ public class InvertWordsPreserveStructureFast : IInvertWordsFast
                 // find the start of the next reversed word in line
                 while (!IsWordStart(reversedWordStart, testString))
                     reversedWordStart--;
-                
-                var reversedWordEnd = reversedWordStart;
-                // find the end of the next reversed word in line
-                while (!IsWordEnd(reversedWordEnd, testString))
-                    reversedWordEnd++;
-                
+
                 // copy reversed word to result
-                for (int i = reversedWordStart; i <= reversedWordEnd; i++)
+                for (int i = reversedWordStart; i == 0 || !IsWordEnd(i - 1, testString); i++)
                     resultChars[writePtr++] = testString[i];
 
                 reversedWordStart--;
@@ -41,7 +36,6 @@ public class InvertWordsPreserveStructureFast : IInvertWordsFast
                     readPtr++;
             }
         }
-
         return new string(resultChars);
     }
 
