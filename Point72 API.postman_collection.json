@@ -11,9 +11,28 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BaseUri}}",
+					"raw": "{{BaseUri}}/api/search?author=stanislaw&text=novel",
 					"host": [
 						"{{BaseUri}}"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "stanislaw"
+						},
+						{
+							"key": "userId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "text",
+							"value": "novel"
+						}
 					]
 				}
 			},
@@ -25,14 +44,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BaseUri}}/api/invertwords/12",
+					"raw": "{{BaseUri}}/api/invertwords/6",
 					"host": [
 						"{{BaseUri}}"
 					],
 					"path": [
 						"api",
 						"invertwords",
-						"12"
+						"6"
 					]
 				}
 			},
@@ -42,7 +61,17 @@
 			"name": "Report",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{BaseUri}}/api/report",
+					"host": [
+						"{{BaseUri}}"
+					],
+					"path": [
+						"api",
+						"report"
+					]
+				}
 			},
 			"response": []
 		}
