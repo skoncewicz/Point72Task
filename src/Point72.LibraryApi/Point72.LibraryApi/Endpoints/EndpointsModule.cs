@@ -9,6 +9,7 @@ public static class EndpointsModule
         services.AddTransient<GetReport>();
         services.AddTransient<InvertWords>();
         
-        services.AddTransient<IInvertWords, InvertWordsPreserveStructure>();
+        //services.AddTransient<IInvertWords, InvertWordsPreserveStructure>();
+        services.AddTransient<IInvertWordsFast, InvertWordsPreserveStructureFast>();
     }
 }
