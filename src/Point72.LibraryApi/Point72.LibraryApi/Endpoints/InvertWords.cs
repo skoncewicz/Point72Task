@@ -4,7 +4,7 @@
 /// Leaving this as a separate class, so it can be rewritten to use 0-allocation.
 /// But I'm going on vacation today so no time :(
 /// </summary>
-public class InvertWords
+public class InvertWords : IInvertWords
 {
     public string Invert(string testString)
     {

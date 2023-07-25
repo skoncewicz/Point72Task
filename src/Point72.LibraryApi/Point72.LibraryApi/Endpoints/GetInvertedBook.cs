@@ -33,9 +33,9 @@ public class GetInvertedBook
     }
     
     private readonly FindBookQuery _findBookQuery;
-    private readonly InvertWords _invertWords;
+    private readonly IInvertWords _invertWords;
 
-    public GetInvertedBook(FindBookQuery findBookQuery, InvertWords invertWords)
+    public GetInvertedBook(FindBookQuery findBookQuery, IInvertWords invertWords)
     {
         _findBookQuery = findBookQuery;
         _invertWords = invertWords;

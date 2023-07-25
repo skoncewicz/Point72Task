@@ -13,7 +13,7 @@ public class GetInvertedBookTests : IntegrationTest
     {
         // arrange
         var author = new Author { Id = 1, FirstName = "John", LastName = "Doe" };
-        var book = new Book() { Id = 1, Title = "One two three", Description = "Description", Author = author};
+        var book = new Book() { Id = 1, Title = "One two, three", Description = "Description", Author = author};
         GivenBooks(book);
         
         // act
@@ -25,7 +25,7 @@ public class GetInvertedBookTests : IntegrationTest
         
         // assert
         result.Should().NotBeNull();
-        result.Title.Should().Be("three two One");
+        result.Title.Should().Be("three two, One");
         result.Description.Should().Be("Description");
     }
     
